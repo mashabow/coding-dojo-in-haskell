@@ -1,5 +1,6 @@
 module RomanNumerals
     ( charToInt
+     , stringToIntArray
     ) where
 
 import qualified Data.Map as Map
@@ -21,3 +22,6 @@ table = Map.fromList $
 
 charToInt :: Char -> Maybe Int
 charToInt c = Map.lookup c table
+
+stringToIntArray :: String -> Maybe [Int]
+stringToIntArray s = mapM charToInt s
