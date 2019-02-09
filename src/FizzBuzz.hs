@@ -1,5 +1,6 @@
 module FizzBuzz
     ( convert
+    , convertArray
     ) where
 
 
@@ -15,3 +16,6 @@ convert n
     where
         isMultipleOf3 = n `mod` 3 == 0
         isMultipleOf5 = n `mod` 5 == 0
+
+convertArray :: [Int] -> [String]
+convertArray = map convert

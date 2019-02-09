@@ -23,3 +23,9 @@ spec = do
                 convert 1 `shouldBe` "1"
                 convert 2 `shouldBe` "2"
                 convert 34 `shouldBe` "34"
+
+    describe "convertArray" $ do
+        it "[10, 11, 12, 13, 14, 15] に対して \
+            \[\"Buzz\", \"11\", \"Fizz\", \"13\", \"14\", \"FizzBuzz\"] を返す" $ do
+            convertArray [10, 11, 12, 13, 14, 15]
+                `shouldBe` ["Buzz", "11", "Fizz", "13", "14", "FizzBuzz"]
