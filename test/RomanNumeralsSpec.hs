@@ -14,3 +14,4 @@ spec = do
             convertDigit "C" `shouldBe` Just 100
             convertDigit "D" `shouldBe` Just 500
             convertDigit "M" `shouldBe` Just 1000
+            convertDigit "A" `shouldBe` Nothing
