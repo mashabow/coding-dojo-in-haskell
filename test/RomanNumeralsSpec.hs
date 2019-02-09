@@ -10,7 +10,7 @@ spec = do
             convertDigit "I" `shouldBe` Just 1
             convertDigit "V" `shouldBe` Just 5
             convertDigit "X" `shouldBe` Just 10
-            convertDigit "X" `shouldBe` Just 50
+            convertDigit "L" `shouldBe` Just 50
             convertDigit "C" `shouldBe` Just 100
             convertDigit "D" `shouldBe` Just 500
             convertDigit "M" `shouldBe` Just 1000
