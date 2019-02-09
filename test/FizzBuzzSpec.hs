@@ -7,7 +7,9 @@ spec :: Spec
 spec = do
     describe "convert" $ do
         context "3 の倍数のとき" $ do
-            it "Fizz を返す" $ do pending
+            it "Fizz を返す" $ do
+                convert 3 `shouldBe` "Fizz"
+                convert 6 `shouldBe` "Fizz"
         context "5 の倍数のとき" $ do
             it "Buzz を返す" $ do pending
         context "3 と 5 の倍数のとき" $ do
