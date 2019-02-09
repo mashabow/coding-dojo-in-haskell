@@ -1,6 +1,7 @@
 module FizzBuzzSpec (spec) where
 
 import Test.Hspec
+import System.IO.Silently
 import FizzBuzz
 
 spec :: Spec
@@ -29,3 +30,9 @@ spec = do
             \[\"Buzz\", \"11\", \"Fizz\", \"13\", \"14\", \"FizzBuzz\"] を返す" $ do
             convertArray [10, 11, 12, 13, 14, 15]
                 `shouldBe` ["Buzz", "11", "Fizz", "13", "14", "FizzBuzz"]
+
+    describe "fizzBuzz" $ do
+        it "標準出力に \"1\\n2\\nFizz\\n ... 98\\nFizz\\nBuzz\\n\" が出力される" $ do
+            lines <- capture_ fizzBuzz
+            lines `shouldStartWith` "1\n2\nFizz\n"
+            lines `shouldEndWith` "98\nFizz\nBuzz\n"
