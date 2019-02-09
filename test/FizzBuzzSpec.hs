@@ -11,7 +11,9 @@ spec = do
                 convert 3 `shouldBe` "Fizz"
                 convert 6 `shouldBe` "Fizz"
         context "5 の倍数のとき" $ do
-            it "Buzz を返す" $ do pending
+            it "Buzz を返す" $ do
+                convert 5 `shouldBe` "Buzz"
+                convert 10 `shouldBe` "Buzz"
         context "3 と 5 の倍数のとき" $ do
             it "FizzBuzz を返す" $ do pending
         context "それ以外のとき" $ do
