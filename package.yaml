@@ -47,3 +47,4 @@ tests:
     dependencies:
     - coding-dojo-in-haskell
     - hspec
+    - silently
