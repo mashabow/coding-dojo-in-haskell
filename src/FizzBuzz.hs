@@ -7,4 +7,4 @@ module FizzBuzz
 
 
 convert :: Int -> String
-convert = show
+convert n = if n `mod` 3 == 0 then "Fizz" else show n
