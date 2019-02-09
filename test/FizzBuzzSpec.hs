@@ -15,7 +15,9 @@ spec = do
                 convert 5 `shouldBe` "Buzz"
                 convert 10 `shouldBe` "Buzz"
         context "3 と 5 の倍数のとき" $ do
-            it "FizzBuzz を返す" $ do pending
+            it "FizzBuzz を返す" $ do
+                convert 15 `shouldBe` "FizzBuzz"
+                convert 30 `shouldBe` "FizzBuzz"
         context "それ以外のとき" $ do
             it "その自然数を文字列にして返す" $ do
                 convert 1 `shouldBe` "1"
