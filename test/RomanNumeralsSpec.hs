@@ -5,13 +5,13 @@ import RomanNumerals
 
 spec :: Spec
 spec = do
-    describe "convertDigit" $ do
-        it "1 文字からなるローマ数字を変換する" $ do
-            convertDigit "I" `shouldBe` Just 1
-            convertDigit "V" `shouldBe` Just 5
-            convertDigit "X" `shouldBe` Just 10
-            convertDigit "L" `shouldBe` Just 50
-            convertDigit "C" `shouldBe` Just 100
-            convertDigit "D" `shouldBe` Just 500
-            convertDigit "M" `shouldBe` Just 1000
-            convertDigit "A" `shouldBe` Nothing
+    describe "charToInt" $ do
+        it "ローマ数字 1 文字を変換する" $ do
+            charToInt 'I' `shouldBe` Just 1
+            charToInt 'V' `shouldBe` Just 5
+            charToInt 'X' `shouldBe` Just 10
+            charToInt 'L' `shouldBe` Just 50
+            charToInt 'C' `shouldBe` Just 100
+            charToInt 'D' `shouldBe` Just 500
+            charToInt 'M' `shouldBe` Just 1000
+            charToInt 'A' `shouldBe` Nothing
