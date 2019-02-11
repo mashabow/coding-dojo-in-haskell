@@ -3,8 +3,10 @@ module RomanNumerals
     , Group(..)
     , stringToGroups
     , checkGroupCount
+    , checkGroupOrders
     ) where
 
+import Control.Monad
 import qualified Data.List as List
 import qualified Data.Map as Map
 
@@ -43,3 +45,10 @@ checkGroupCount group =
     where
         v = value group
         c = count group
+
+checkGroupOrders :: [Group] -> Maybe Int
+checkGroupOrders =
+    (foldM (\prev x ->
+        if prev > x || prev * 5 == x || prev * 10 == x
+            then Just x else Nothing)
+    maxBound) . (map value)

@@ -51,3 +51,32 @@ spec = do
                 checkGroupCount (Group 5 2) `shouldBe` False
                 checkGroupCount (Group 50 2) `shouldBe` False
                 checkGroupCount (Group 500 2) `shouldBe` False
+
+    describe "checkGroupOrders" $ do
+        context "すべて降順で並んでいる場合" $ do
+            it "Just n を返す" $ do
+                checkGroupOrders
+                    [Group 1 1] `shouldBe` Just 1
+                checkGroupOrders
+                    [Group 5 1, Group 1 2] `shouldBe` Just 1
+                checkGroupOrders
+                    [Group 1000 3, Group 50 2, Group 5 1] `shouldBe` Just 5
+        context "有効な減算則を含んでいる場合" $ do
+            it "Just n を返す" $ do
+                checkGroupOrders
+                    [Group 1 1, Group 5 1] `shouldBe` Just 5
+                checkGroupOrders
+                    [Group 100 2, Group 1 1, Group 10 1] `shouldBe` Just 10
+        context "それ以外の場合" $ do
+            it "Nothing を返す" $ do
+                -- n を減算できるのは 5n か 10n のみ
+                checkGroupOrders
+                    [Group 1 1, Group 50 1] `shouldBe` Nothing
+                -- 減算する場合、どちらのグループの個数も 1 である必要がある
+                checkGroupOrders
+                    [Group 1 3, Group 10 1] `shouldBe` Nothing
+                checkGroupOrders
+                    [Group 1 1, Group 10 3] `shouldBe` Nothing
+                -- 減算後に、それと同じ数が出現することはない
+                checkGroupOrders
+                    [Group 1 1, Group 10 1, Group 1 3] `shouldBe` Nothing
