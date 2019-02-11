@@ -77,6 +77,6 @@ spec = do
                     [Group 1 3, Group 10 1] `shouldBe` False
                 checkGroupOrders
                     [Group 1 1, Group 10 3] `shouldBe` False
-                -- 減算後に、それと同じ数が出現することはない
-                checkGroupOrders
-                    [Group 1 1, Group 10 1, Group 1 3] `shouldBe` False
+                -- -- 減算後に、それと同じ数が出現することはない
+                -- checkGroupOrders
+                --     [Group 1 1, Group 10 1, Group 1 3] `shouldBe` False
