@@ -80,3 +80,14 @@ spec = do
                 -- -- 減算後に、それと同じ数が出現することはない
                 -- checkGroupOrders
                 --     [Group 1 1, Group 10 1, Group 1 3] `shouldBe` False
+
+    describe "calcGroups" $ do
+        it "正しい [Group] から、それが表す値を計算する" $ do
+            calcGroups
+                [Group 10 2, Group 1 3] `shouldBe` 23
+            calcGroups
+                [Group 1 1, Group 10 1] `shouldBe` 9
+            calcGroups
+                [Group 10 1, Group 100 1, Group 1 1, Group 10 1] `shouldBe` 99
+            calcGroups
+                [Group 100 2, Group 10 1, Group 50 1, Group 1 3] `shouldBe` 243

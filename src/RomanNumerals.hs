@@ -4,6 +4,7 @@ module RomanNumerals
     , stringToGroups
     , checkGroupCount
     , checkGroupOrders
+    , calcGroups
     ) where
 
 import Control.Monad
@@ -58,3 +59,11 @@ checkGroupOrders =
                     c0 == 1 && c1 == 1
             then Just g else Nothing
     ) (Group maxBound 0))
+
+calcGroups :: [Group] -> Int
+calcGroups =
+    sum . (map (\g -> (value g) * (count g))) .
+    foldr (
+        \(Group v0 c0) gs@((Group v1 _) : _) ->
+            (if v0 > v1 then Group v0 c0 else Group v0 (-c0)) : gs
+    ) ([Group minBound 0])
