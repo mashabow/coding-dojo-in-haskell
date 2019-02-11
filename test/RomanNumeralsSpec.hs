@@ -16,34 +16,38 @@ spec = do
             charToInt 'M' `shouldBe` Just 1000
             charToInt 'A' `shouldBe` Nothing
 
-    describe "stringToIntGroups" $ do
+    describe "stringToGroups" $ do
         it "ローマ数字の各文字を Int に変換し、それをグループ化する" $ do
-            stringToIntGroups "I" `shouldBe` Just [[1]]
-            stringToIntGroups "VII" `shouldBe` Just [[5], [1, 1]]
-            stringToIntGroups "MXXVI" `shouldBe` Just [[1000], [10, 10], [5], [1]]
+            stringToGroups "I" `shouldBe`
+                Just [Group 1 1]
+            stringToGroups "VII" `shouldBe`
+                Just [Group 5 1, Group 1 2]
+            stringToGroups "MXXVI" `shouldBe`
+                Just [Group 1000 1, Group 10 2, Group 5 1, Group 1 1]
             -- ローマ数字として不正な並びであっても、ここではチェックしない
-            stringToIntGroups "IXILL" `shouldBe` Just [[1], [10], [1], [50, 50]]
+            stringToGroups "IXILL" `shouldBe`
+                Just [Group 1 1, Group 10 1, Group 1 1, Group 50 2]
         it "不正な文字が 1 つでも入っていれば Nothing を返す" $ do
-            stringToIntGroups "XVA" `shouldBe` Nothing
-            stringToIntGroups "wrong" `shouldBe` Nothing
+            stringToGroups "XVA" `shouldBe` Nothing
+            stringToGroups "wrong" `shouldBe` Nothing
 
-    describe "checkGroupLength" $ do
+    describe "checkGroupCount" $ do
         context "1, 10, 100, 1000 のいずれかのグループのとき" $ do
             it "要素数が 3 以下であれば OK" $ do
-                checkGroupLength [1] `shouldBe` True
-                checkGroupLength [1, 1, 1] `shouldBe` True
-                checkGroupLength [10, 10, 10] `shouldBe` True
-                checkGroupLength [100, 100, 100] `shouldBe` True
-                checkGroupLength [1000, 1000, 1000] `shouldBe` True
-                checkGroupLength [1, 1, 1, 1] `shouldBe` False
-                checkGroupLength [10, 10, 10, 10] `shouldBe` False
-                checkGroupLength [100, 100, 100, 100] `shouldBe` False
-                checkGroupLength [1000, 1000, 1000, 1000] `shouldBe` False
+                checkGroupCount (Group 1 1) `shouldBe` True
+                checkGroupCount (Group 1 3) `shouldBe` True
+                checkGroupCount (Group 10 3) `shouldBe` True
+                checkGroupCount (Group 100 3) `shouldBe` True
+                checkGroupCount (Group 1000 3) `shouldBe` True
+                checkGroupCount (Group 1 4) `shouldBe` False
+                checkGroupCount (Group 10 4) `shouldBe` False
+                checkGroupCount (Group 100 4) `shouldBe` False
+                checkGroupCount (Group 1000 4) `shouldBe` False
         context "5, 50, 500 のいずれかのグループのとき" $ do
             it "要素数が 1 であれば OK" $ do
-                checkGroupLength [5] `shouldBe` True
-                checkGroupLength [50] `shouldBe` True
-                checkGroupLength [500] `shouldBe` True
-                checkGroupLength [5, 5] `shouldBe` False
-                checkGroupLength [50, 50] `shouldBe` False
-                checkGroupLength [500, 500] `shouldBe` False
+                checkGroupCount (Group 5 1) `shouldBe` True
+                checkGroupCount (Group 50 1) `shouldBe` True
+                checkGroupCount (Group 500 1) `shouldBe` True
+                checkGroupCount (Group 5 2) `shouldBe` False
+                checkGroupCount (Group 50 2) `shouldBe` False
+                checkGroupCount (Group 500 2) `shouldBe` False

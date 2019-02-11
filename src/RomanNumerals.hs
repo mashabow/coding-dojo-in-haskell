@@ -1,7 +1,8 @@
 module RomanNumerals
     ( charToInt
-    , stringToIntGroups
-    , checkGroupLength
+    , Group(..)
+    , stringToGroups
+    , checkGroupCount
     ) where
 
 import qualified Data.List as List
@@ -25,13 +26,20 @@ table = Map.fromList $
 charToInt :: Char -> Maybe Int
 charToInt c = Map.lookup c table
 
-stringToIntGroups :: String -> Maybe [[Int]]
-stringToIntGroups = (fmap List.group) . (mapM charToInt)
+data Group = Group
+    { value :: Int
+    , count :: Int
+    } deriving (Show, Eq)
 
-checkGroupLength :: [Int] -> Bool
-checkGroupLength group =
-    (n `elem` [1, 10, 100, 1000] && len <= 3) ||
-    (n `elem` [5, 50, 500] && len == 1)
+stringToGroups :: String -> Maybe [Group]
+stringToGroups =
+    (fmap $ map (\g -> Group (head g) (length g)) . List.group)
+    . (mapM charToInt)
+
+checkGroupCount :: Group -> Bool
+checkGroupCount group =
+    (v `elem` [1, 10, 100, 1000] && c <= 3) ||
+    (v `elem` [5, 50, 500] && c == 1)
     where
-        n = head group
-        len = length group
+        v = value group
+        c = count group
