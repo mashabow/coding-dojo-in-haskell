@@ -1,8 +1,9 @@
 module RomanNumerals
     ( charToInt
-     , stringToIntArray
+    , stringToIntGroups
     ) where
 
+import qualified Data.List as List
 import qualified Data.Map as Map
 
 
@@ -23,5 +24,5 @@ table = Map.fromList $
 charToInt :: Char -> Maybe Int
 charToInt c = Map.lookup c table
 
-stringToIntArray :: String -> Maybe [Int]
-stringToIntArray = mapM charToInt
+stringToIntGroups :: String -> Maybe [[Int]]
+stringToIntGroups = (fmap List.group) . (mapM charToInt)
