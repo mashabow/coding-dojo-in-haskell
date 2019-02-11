@@ -49,7 +49,12 @@ checkGroupCount group =
 
 checkGroupOrders :: [Group] -> Bool
 checkGroupOrders =
-    isJust . (foldM (\prev x ->
-        if prev > x || prev * 5 == x || prev * 10 == x
-            then Just x else Nothing)
-    maxBound) . (map value)
+    isJust . (foldM (
+        \(Group v0 c0) g@(Group v1 c1) ->
+            if  -- 降順に並んでいる場合
+                v0 > v1 ||
+                -- 減算則
+                (v0 * 5 == v1 || v0 * 10 == v1) &&
+                    c0 == 1 && c1 == 1
+            then Just g else Nothing
+    ) (Group maxBound 0))
