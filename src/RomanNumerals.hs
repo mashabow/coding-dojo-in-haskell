@@ -63,12 +63,12 @@ checkGroupOrders =
 calcGroups :: [Group] -> Int
 calcGroups =
     sum . (map (\g -> (value g) * (count g))) .
-    foldr (
-        \(Group v0 c0) gs@((Group v1 _) : rest) ->
+    foldl (
+        \gs@((Group v0 _) : rest) (Group v1 c1) ->
             if v0 > v1
-                then (Group v0 c0) : gs
+                then (Group v1 c1) : gs
                 -- 減算則によって引く数は、ここで引かれる数とまとめてしまう
                 -- このとき、どちらの count も 1 であることが保証されている
                 -- （checkGroupOrders によって）
                 else (Group (v1 - v0) 1) : rest
-    ) ([Group minBound 0])
+    ) ([Group maxBound 0])
