@@ -1,6 +1,7 @@
 module RomanNumerals
     ( charToInt
     , stringToIntGroups
+    , checkGroupLength
     ) where
 
 import qualified Data.List as List
@@ -26,3 +27,11 @@ charToInt c = Map.lookup c table
 
 stringToIntGroups :: String -> Maybe [[Int]]
 stringToIntGroups = (fmap List.group) . (mapM charToInt)
+
+checkGroupLength :: [Int] -> Bool
+checkGroupLength group =
+    (n `elem` [1, 10, 100, 1000] && len <= 3) ||
+    (n `elem` [5, 50, 500] && len == 1)
+    where
+        n = head group
+        len = length group

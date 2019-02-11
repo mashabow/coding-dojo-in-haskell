@@ -26,3 +26,24 @@ spec = do
         it "不正な文字が 1 つでも入っていれば Nothing を返す" $ do
             stringToIntGroups "XVA" `shouldBe` Nothing
             stringToIntGroups "wrong" `shouldBe` Nothing
+
+    describe "checkGroupLength" $ do
+        context "1, 10, 100, 1000 のいずれかのグループのとき" $ do
+            it "要素数が 3 以下であれば OK" $ do
+                checkGroupLength [1] `shouldBe` True
+                checkGroupLength [1, 1, 1] `shouldBe` True
+                checkGroupLength [10, 10, 10] `shouldBe` True
+                checkGroupLength [100, 100, 100] `shouldBe` True
+                checkGroupLength [1000, 1000, 1000] `shouldBe` True
+                checkGroupLength [1, 1, 1, 1] `shouldBe` False
+                checkGroupLength [10, 10, 10, 10] `shouldBe` False
+                checkGroupLength [100, 100, 100, 100] `shouldBe` False
+                checkGroupLength [1000, 1000, 1000, 1000] `shouldBe` False
+        context "5, 50, 500 のいずれかのグループのとき" $ do
+            it "要素数が 1 であれば OK" $ do
+                checkGroupLength [5] `shouldBe` True
+                checkGroupLength [50] `shouldBe` True
+                checkGroupLength [500] `shouldBe` True
+                checkGroupLength [5, 5] `shouldBe` False
+                checkGroupLength [50, 50] `shouldBe` False
+                checkGroupLength [500, 500] `shouldBe` False
