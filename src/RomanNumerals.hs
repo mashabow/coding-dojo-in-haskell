@@ -7,6 +7,7 @@ module RomanNumerals
     ) where
 
 import Control.Monad
+import Data.Maybe
 import qualified Data.List as List
 import qualified Data.Map as Map
 
@@ -46,9 +47,9 @@ checkGroupCount group =
         v = value group
         c = count group
 
-checkGroupOrders :: [Group] -> Maybe Int
+checkGroupOrders :: [Group] -> Bool
 checkGroupOrders =
-    (foldM (\prev x ->
+    isJust . (foldM (\prev x ->
         if prev > x || prev * 5 == x || prev * 10 == x
             then Just x else Nothing)
     maxBound) . (map value)
