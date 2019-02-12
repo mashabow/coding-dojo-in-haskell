@@ -60,15 +60,32 @@ checkGroupOrders =
             then Just g else Nothing
     ) (Group maxBound 0))
 
-calcGroups :: [Group] -> Int
+calcGroups :: [Group] -> Maybe Int
 calcGroups =
-    sum . (map (\g -> (value g) * (count g))) .
-    foldl (
-        \gs@((Group v0 _) : rest) (Group v1 c1) ->
-            if v0 > v1
-                then (Group v1 c1) : gs
-                -- 減算則によって引く数は、ここで引かれる数とまとめてしまう
-                -- このとき、どちらの count も 1 であることが保証されている
-                -- （checkGroupOrders によって）
-                else (Group (v1 - v0) 1) : rest
+    fmap (sum . (map (\g -> (value g) * (count g)))) .
+    foldM (
+        \gs@((Group v0 _) : rest) g@(Group v1 c1) ->
+            if isValidAddition (head gs) g
+                then Just (g : gs)
+            else if isValidSubtraction (head gs) g
+                then Just ((Group (v1 - v0) 1) : rest)
+            else Nothing
     ) ([Group maxBound 0])
+
+isValidAddition :: Group -> Group -> Bool
+isValidAddition (Group v0 c0) (Group v1 c1)
+    = and
+        [ v0 > v1
+        , not (v0 `elem` [4, 9] && v1 `elem` [1, 5])
+        , not (v0 `elem` [40, 90] && v1 `elem` [10, 50])
+        , not (v0 `elem` [400, 900] && v1 `elem` [100, 500])
+        ]
+
+isValidSubtraction :: Group -> Group -> Bool
+isValidSubtraction (Group v0 c0) (Group v1 c1)
+    = and
+        [ v0 < v1
+        , v0 * 5 == v1 || v0 * 10 == v1
+        , c0 == 1
+        , c1 == 1
+        ]
