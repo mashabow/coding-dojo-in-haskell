@@ -3,7 +3,6 @@ module RomanNumerals
     , Group(..)
     , stringToGroups
     , checkGroupCount
-    , checkGroupOrders
     , calcGroups
     ) where
 
@@ -47,18 +46,6 @@ checkGroupCount group =
     where
         v = value group
         c = count group
-
-checkGroupOrders :: [Group] -> Bool
-checkGroupOrders =
-    isJust . (foldM (
-        \(Group v0 c0) g@(Group v1 c1) ->
-            if  -- 降順に並んでいる場合
-                v0 > v1 ||
-                -- 減算則
-                (v0 * 5 == v1 || v0 * 10 == v1) &&
-                    c0 == 1 && c1 == 1
-            then Just g else Nothing
-    ) (Group maxBound 0))
 
 calcGroups :: [Group] -> Maybe Int
 calcGroups =
