@@ -84,18 +84,43 @@ spec = do
                 --     [Group 1 1, Group 10 1, Group 100 1] `shouldBe` False
 
     describe "calcGroups" $ do
-        it "正しい [Group] から、それが表す値を計算する" $ do
-            calcGroups
-                [Group 10 2, Group 1 3] `shouldBe` Just 23
-            calcGroups
-                [Group 1 1, Group 10 1] `shouldBe` Just 9
-            calcGroups
-                [Group 10 1, Group 100 1, Group 1 1, Group 10 1] `shouldBe` Just 99
-            calcGroups
-                [Group 100 2, Group 10 1, Group 50 1, Group 1 3] `shouldBe` Just 243
-            calcGroups
-                [Group 1 1, Group 10 1, Group 1 3] `shouldBe` Nothing
-            calcGroups
-                [Group 1 1, Group 10 1, Group 100 1] `shouldBe` Nothing
-            calcGroups
-                [Group 100 1, Group 500 1, Group 100 2] `shouldBe` Nothing
+        context "すべて加算の場合" $ do
+            it "合計を計算して Just で返す" $ do
+                calcGroups [Group 1 1]
+                    `shouldBe` Just 1
+                calcGroups [Group 10 2, Group 1 3]
+                    `shouldBe` Just 23
+                calcGroups [Group 1000 3, Group 50 1, Group 5 1, Group 1 2]
+                    `shouldBe` Just 3057
+        context "正しい減算を含む場合" $ do
+            it "合計を計算して Just で返す" $ do
+                calcGroups [Group 1 1, Group 5 1]
+                    `shouldBe` Just 4
+                calcGroups [Group 1 1, Group 10 1]
+                    `shouldBe` Just 9
+                calcGroups [Group 10 1, Group 100 1, Group 1 1, Group 10 1]
+                    `shouldBe` Just 99
+                calcGroups [Group 100 2, Group 10 1, Group 50 1, Group 1 3]
+                    `shouldBe` Just 243
+                calcGroups [Group 100 3, Group 1 1, Group 10 1]
+                    `shouldBe` Just 309
+        context "減算の条件を満たしていない場合" $ do
+            it "Nothing を返す" $ do
+                -- 引かれる数の value は引く数の 5 倍 or 10倍でなければならない
+                calcGroups [Group 1 1, Group 500 1]
+                    `shouldBe` Nothing
+                -- 単独で見る限りでは上記の条件を満たしているが、減算適用（Group 併合）が行われるので、
+                -- isSubtraction の `v0 * 5 == v1 || v0 * 10 == v1` で弾かれる（意図通り）
+                calcGroups [Group 1 1, Group 10 1, Group 100 1]
+                    `shouldBe` Nothing
+                -- 両 Group とも count が 1 でなければならない
+                calcGroups [Group 1 1, Group 5 2]
+                    `shouldBe` Nothing
+                calcGroups [Group 1 3, Group 5 1]
+                    `shouldBe` Nothing
+        context "減算の右側において、減算結果と同じ桁数の Group が現れる場合" $ do
+            it "Nothing を返す" $ do
+                calcGroups [Group 1 1, Group 10 1, Group 1 3]
+                    `shouldBe` Nothing
+                calcGroups [Group 100 1, Group 500 1, Group 100 2]
+                    `shouldBe` Nothing

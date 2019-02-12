@@ -62,30 +62,27 @@ checkGroupOrders =
 
 calcGroups :: [Group] -> Maybe Int
 calcGroups =
-    fmap (sum . (map (\g -> (value g) * (count g)))) .
-    foldM (
-        \gs@((Group v0 _) : rest) g@(Group v1 c1) ->
-            if isValidAddition (head gs) g
-                then Just (g : gs)
-            else if isValidSubtraction (head gs) g
-                then Just ((Group (v1 - v0) 1) : rest)
-            else Nothing
-    ) ([Group maxBound 0])
-
-isValidAddition :: Group -> Group -> Bool
-isValidAddition (Group v0 c0) (Group v1 c1)
-    = and
-        [ v0 > v1
-        , not (v0 `elem` [4, 9] && v1 `elem` [1, 5])
-        , not (v0 `elem` [40, 90] && v1 `elem` [10, 50])
-        , not (v0 `elem` [400, 900] && v1 `elem` [100, 500])
-        ]
-
-isValidSubtraction :: Group -> Group -> Bool
-isValidSubtraction (Group v0 c0) (Group v1 c1)
-    = and
-        [ v0 < v1
-        , v0 * 5 == v1 || v0 * 10 == v1
-        , c0 == 1
-        , c1 == 1
-        ]
+    fmap (sum . map (\g -> (value g) * (count g))) .
+    foldM f [Group maxBound 0]
+    where
+        f (g0:rest) g1
+            | isAddition g0 g1 = Just $ g1 : g0 : rest
+            -- 減算則の場合は、その Group 同士を併合しておく
+            | isSubtraction g0 g1 = Just $ Group (value g1 - value g0) 1 : rest
+            | otherwise = Nothing
+        isAddition (Group v0 _) (Group v1 _)
+            = and
+                [ v0 > v1
+                -- v0 が減算則適用後だった場合、v1 がそれと同じ桁数の Group だったら不正
+                -- e.g. [Group 1 1, Group 10 1, Group 1 3]
+                , not (v0 `elem` [4, 9] && v1 `elem` [1, 5])
+                , not (v0 `elem` [40, 90] && v1 `elem` [10, 50])
+                , not (v0 `elem` [400, 900] && v1 `elem` [100, 500])
+                ]
+        isSubtraction (Group v0 c0) (Group v1 c1)
+            = and
+                [ v0 < v1
+                , v0 * 5 == v1 || v0 * 10 == v1
+                , c0 == 1
+                , c1 == 1
+                ]
