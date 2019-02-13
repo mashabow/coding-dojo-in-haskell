@@ -83,9 +83,9 @@ spec = do
                 calcGroups [Group 1 1, Group 10 1, Group 100 1]
                     `shouldBe` Nothing
                 -- 両 Group とも count が 1 でなければならない
-                calcGroups [Group 1 1, Group 5 2]
+                calcGroups [Group 1 1, Group 10 2]
                     `shouldBe` Nothing
-                calcGroups [Group 1 3, Group 5 1]
+                calcGroups [Group 1 3, Group 10 1]
                     `shouldBe` Nothing
         context "減算の右側において、減算結果と同じ桁数の Group が現れる場合" $ do
             it "Nothing を返す" $ do
@@ -93,3 +93,16 @@ spec = do
                     `shouldBe` Nothing
                 calcGroups [Group 100 1, Group 500 1, Group 100 2]
                     `shouldBe` Nothing
+
+    describe "parseRoman" $ do
+        it "ローマ数字の文字列をパースして Maybe Int を返す" $ do
+            parseRoman "I" `shouldBe` Just 1
+            parseRoman "MMMLVII" `shouldBe` Just 3057
+            parseRoman "IV" `shouldBe` Just 4
+            parseRoman "XCIX" `shouldBe` Just 99
+            parseRoman "CCXLIII" `shouldBe` Just 243
+            parseRoman "IIII" `shouldBe` Nothing
+            parseRoman "VV" `shouldBe` Nothing
+            parseRoman "IXX" `shouldBe` Nothing
+            parseRoman "IXIII" `shouldBe` Nothing
+            parseRoman "foo" `shouldBe` Nothing

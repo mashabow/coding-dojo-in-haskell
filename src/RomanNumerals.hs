@@ -4,6 +4,7 @@ module RomanNumerals
     , stringToGroups
     , checkGroupCount
     , calcGroups
+    , parseRoman
     ) where
 
 import Control.Monad
@@ -73,3 +74,9 @@ calcGroups =
                 , c0 == 1
                 , c1 == 1
                 ]
+
+parseRoman :: String -> Maybe Int
+parseRoman s = do
+    gs <- stringToGroups s
+    guard $ all checkGroupCount gs
+    calcGroups gs
