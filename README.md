@@ -1,4 +1,4 @@
-# coding-dojo-in-haskell
+# coding-dojo-in-haskell [![CircleCI](https://circleci.com/gh/mashabow/coding-dojo-in-haskell.svg?style=svg)](https://circleci.com/gh/mashabow/coding-dojo-in-haskell)
 
 Coding Dojo の Kata を使って Haskell の練習 💪
 
