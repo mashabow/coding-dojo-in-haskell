@@ -38,7 +38,7 @@ data Group = Group
 stringToGroups :: String -> Maybe [Group]
 stringToGroups =
     (fmap $ map (\g -> Group (head g) (length g)) . List.group)
-    . (mapM charToInt)
+    . mapM charToInt
 
 checkGroupCount :: Group -> Bool
 checkGroupCount group =
