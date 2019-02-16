@@ -4,6 +4,8 @@ import Test.Hspec
 import System.IO.Silently
 import FizzBuzz
 
+{-# ANN module "HLint: ignore Redundant do" #-}
+
 spec :: Spec
 spec = do
     describe "convert" $ do

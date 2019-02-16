@@ -3,6 +3,8 @@ module RomanNumeralsSpec (spec) where
 import Test.Hspec
 import RomanNumerals
 
+{-# ANN module "HLint: ignore Redundant do" #-}
+
 spec :: Spec
 spec = do
     describe "charToInt" $ do
