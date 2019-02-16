@@ -8,11 +8,11 @@ Coding Dojo の Kata を使って Haskell の練習 💪
 
 ## ツールの準備
 
+macOS の場合
+
 ```console
 $ brew install stack
 ```
-
-（MacOS の場合）
 
 ## テストの実行
 
@@ -24,4 +24,11 @@ $ stack test --file-watch
 
 さらに、実行するテストを限定する場合：
 $ stack test --file-watch --test-arguments='--match FizzBuzz'
+```
+
+## HLint の実行
+
+```console
+$ stack install hlint
+$ hlint .
 ```
