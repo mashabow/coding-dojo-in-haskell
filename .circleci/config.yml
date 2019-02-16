@@ -15,6 +15,9 @@ jobs:
       - run:
           name: Run tests
           command: stack test
+      - run:
+          name: Run HLint
+          command: curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh | sh -s .
       - save_cache:
           name: Cache Dependencies
           key: stack-{{ checksum "package.yaml" }}-{{ checksum "stack.yaml" }}

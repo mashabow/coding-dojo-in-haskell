@@ -17,7 +17,7 @@ import qualified Data.Map as Map
 
 
 table :: Map.Map Char Int
-table = Map.fromList $
+table = Map.fromList
     [('I', 1)
     ,('V', 5)
     ,('X', 10)
@@ -37,7 +37,7 @@ data Group = Group
 
 stringToGroups :: String -> Maybe [Group]
 stringToGroups =
-    (fmap $ map (\g -> Group (head g) (length g)) . List.group)
+    fmap (map (\g -> Group (head g) (length g)) . List.group)
     . mapM charToInt
 
 checkGroupCount :: Group -> Bool
@@ -50,7 +50,7 @@ checkGroupCount group =
 
 calcGroups :: [Group] -> Maybe Int
 calcGroups =
-    fmap (sum . map (\g -> (value g) * (count g))) .
+    fmap (sum . map (\g -> value g * count g)) .
     foldM f [Group maxBound 0]
     where
         f (g0:rest) g1
