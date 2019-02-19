@@ -12,7 +12,7 @@ data Frame =
     OpenFrame Int Int |
     -- 第 10 フレームは内容によらず、すべて LastFrame で表す
     LastFrame Int Int Int
-    deriving (Show)
+    deriving (Show, Eq)
 
 toInt :: Char -> Int
 toInt c = if c == '-'
