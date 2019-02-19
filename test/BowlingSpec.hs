@@ -31,7 +31,19 @@ spec = do
                 , StrikeFrame
                 , StrikeFrame
                 , StrikeFrame
-                , LastFrame 3 10 8
+                , LastFrame 3 7 8
+                ]
+            splitIntoFrames "X X X X X X X X X X7/" `shouldBe`
+                [ StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , LastFrame 10 7 3
                 ]
             splitIntoFrames "X X X X X X X X X X-9" `shouldBe`
                 [ StrikeFrame

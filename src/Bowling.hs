@@ -26,6 +26,8 @@ toNonLastFrame [c1, c2] = OpenFrame (toInt c1) (toInt c2)
 
 toLastFrame :: String -> Frame
 toLastFrame [c1, c2] = LastFrame (toInt c1) (toInt c2) 0
+toLastFrame [c1, '/', c3] = LastFrame (toInt c1) (10 - toInt c1) (toInt c3)
+toLastFrame [c1, c2, '/'] = LastFrame (toInt c1) (toInt c2) (10 - toInt c2)
 toLastFrame [c1, c2, c3] = LastFrame (toInt c1) (toInt c2) (toInt c3)
 
 splitIntoFrames :: String -> [Frame]
