@@ -42,7 +42,7 @@ spec = do
                 toLastFrame "X--" `shouldBe` LastFrame 10 0 0
                 toLastFrame "X12" `shouldBe` LastFrame 10 1 2
                 toLastFrame "X3/" `shouldBe` LastFrame 10 3 7
-                toLastFrame "X-X" `shouldBe` LastFrame 10 0 0
+                toLastFrame "X-X" `shouldBe` LastFrame 10 0 10
                 toLastFrame "XX-" `shouldBe` LastFrame 10 10 0
                 toLastFrame "XX4" `shouldBe` LastFrame 10 10 4
                 toLastFrame "XXX" `shouldBe` LastFrame 10 10 10
