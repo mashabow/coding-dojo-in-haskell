@@ -55,3 +55,6 @@ calcTotalScore = fst . foldr (
             let (score, nextTwo') = calcFrame frame nextTwo
             in (total + score, nextTwo')
     ) (0, (0, 0))
+
+calcTotalScoreFromString :: String -> Int
+calcTotalScoreFromString = calcTotalScore . splitIntoFrames

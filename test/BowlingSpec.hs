@@ -116,3 +116,10 @@ spec = do
                 , LastFrame 10 10 10
                 ]
                 `shouldBe` 300
+
+    describe "calcTotalScoreFromString" $ do
+        it "ゲームの文字列から合計点を計算する" $ do
+            calcTotalScoreFromString "-- 1- 2- 3- 4- -5 -6 -7 -8 -9" `shouldBe` 45
+            calcTotalScoreFromString "-/ 1/ 2/ 3/ 4/ 5/ 6/ 7/ 8/ 9/5" `shouldBe` 150
+            calcTotalScoreFromString "X  12 X  3/ -- X  X  4/ -- X-X" `shouldBe` 120
+            calcTotalScoreFromString "X  X  X  X  X  X  X  X  X  XXX" `shouldBe` 300
