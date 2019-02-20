@@ -50,8 +50,8 @@ calcFrame (OpenFrame t1 t2) _ = (t1 + t2, (t1, t2))
 calcFrame (LastFrame t1 t2 t3) _ = (t1 + t2 + t3, (t1, t2))
 
 calcTotalScore :: [Frame] -> Int
-calcTotalScore = fst . foldr f (0, (0, 0))
-    where
-        f frame (total, nextTwo) = (total + score, nextTwo')
-            where
-                (score, nextTwo') = calcFrame frame nextTwo
+calcTotalScore = fst . foldr (
+        \frame (total, nextTwo) ->
+            let (score, nextTwo') = calcFrame frame nextTwo
+            in (total + score, nextTwo')
+    ) (0, (0, 0))
