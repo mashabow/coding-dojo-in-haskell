@@ -46,7 +46,7 @@ type NextTwoThrow = (Int, Int)
 calcFrame :: Frame -> NextTwoThrow -> (Int, NextTwoThrow)
 calcFrame StrikeFrame (n1, n2) = (10 + n1 + n2, (10, n1))
 calcFrame (SpareFrame t1) (n1, _) = (10 + n1, (t1, 10 - t1))
-calcFrame (OpenFrame t1 t2) _ = (t1 + t1, (t1, t2))
+calcFrame (OpenFrame t1 t2) _ = (t1 + t2, (t1, t2))
 calcFrame (LastFrame t1 t2 t3) _ = (t1 + t2 + t3, (t1, t2))
 
 calcTotalScore :: [Frame] -> Int
