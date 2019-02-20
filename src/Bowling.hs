@@ -40,3 +40,18 @@ splitIntoFrames s =
     reverse (toLastFrame xLast : map toNonLastFrame xsReversed)
     where
         xLast:xsReversed = reverse . words $ s
+
+type NextTwoThrow = (Int, Int)
+
+calcFrame :: Frame -> NextTwoThrow -> (Int, NextTwoThrow)
+calcFrame StrikeFrame (n1, n2) = (10 + n1 + n2, (10, n1))
+calcFrame (SpareFrame t1) (n1, _) = (10 + n1, (t1, 10 - t1))
+calcFrame (OpenFrame t1 t2) _ = (t1 + t1, (t1, t2))
+calcFrame (LastFrame t1 t2 t3) _ = (t1 + t2 + t3, (t1, t2))
+
+calcTotalScore :: [Frame] -> Int
+calcTotalScore = fst . foldr f (0, (0, 0))
+    where
+        f frame (total, nextTwo) = (total + score, nextTwo')
+            where
+                (score, nextTwo') = calcFrame frame nextTwo

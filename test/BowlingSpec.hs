@@ -61,3 +61,58 @@ spec = do
                 , StrikeFrame
                 , LastFrame 1 2 0
                 ]
+
+    describe "calcTotalScore" $ do
+        it "[Frame] から合計点を計算する" $ do
+            calcTotalScore
+                [ OpenFrame 0 0
+                , OpenFrame 1 0
+                , OpenFrame 2 0
+                , OpenFrame 3 0
+                , OpenFrame 4 0
+                , OpenFrame 0 5
+                , OpenFrame 0 6
+                , OpenFrame 0 7
+                , OpenFrame 0 8
+                , LastFrame 0 9 0
+                ]
+                `shouldBe` 45
+            calcTotalScore
+                [ SpareFrame 0
+                , SpareFrame 1
+                , SpareFrame 2
+                , SpareFrame 3
+                , SpareFrame 4
+                , SpareFrame 5
+                , SpareFrame 6
+                , SpareFrame 7
+                , SpareFrame 8
+                , LastFrame 9 1 5
+                ]
+                `shouldBe` 150
+            calcTotalScore
+                [ StrikeFrame
+                , OpenFrame 1 2
+                , StrikeFrame
+                , SpareFrame 3
+                , OpenFrame 0 0
+                , StrikeFrame
+                , StrikeFrame
+                , SpareFrame 4
+                , OpenFrame 0 0
+                , LastFrame 10 0 10
+                ]
+                `shouldBe` 120
+            calcTotalScore
+                [ StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , StrikeFrame
+                , LastFrame 10 10 10
+                ]
+                `shouldBe` 300
