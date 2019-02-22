@@ -26,9 +26,16 @@ $ stack test --file-watch
 $ stack test --file-watch --test-arguments='--match FizzBuzz'
 ```
 
-## HLint の実行
+## Lint の実行
 
 ```console
 $ stack install hlint
 $ hlint .
+```
+
+## コードの整形
+
+```console
+$ stack install stylish-haskell
+$ stylish-haskell -i {app,src,test}/*.hs
 ```
