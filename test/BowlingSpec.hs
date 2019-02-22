@@ -1,7 +1,7 @@
 module BowlingSpec (spec) where
 
-import Test.Hspec
-import Bowling
+import           Bowling
+import           Test.Hspec
 
 {-# ANN module "HLint: ignore Redundant do" #-}
 
