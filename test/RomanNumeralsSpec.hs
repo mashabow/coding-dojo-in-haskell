@@ -1,7 +1,7 @@
 module RomanNumeralsSpec (spec) where
 
-import Test.Hspec
-import RomanNumerals
+import           RomanNumerals
+import           Test.Hspec
 
 {-# ANN module "HLint: ignore Redundant do" #-}
 

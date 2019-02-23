@@ -1,8 +1,8 @@
 module FizzBuzzSpec (spec) where
 
-import Test.Hspec
-import System.IO.Silently
-import FizzBuzz
+import           FizzBuzz
+import           System.IO.Silently
+import           Test.Hspec
 
 {-# ANN module "HLint: ignore Redundant do" #-}
 

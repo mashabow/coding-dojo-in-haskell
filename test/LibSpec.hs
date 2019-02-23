@@ -1,8 +1,8 @@
 module LibSpec (spec) where
 
-import Test.Hspec
-import System.IO.Silently
-import Lib
+import           Lib
+import           System.IO.Silently
+import           Test.Hspec
 
 {-# ANN module "HLint: ignore Redundant do" #-}
 

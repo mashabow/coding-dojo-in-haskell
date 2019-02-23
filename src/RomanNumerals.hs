@@ -7,10 +7,10 @@ module RomanNumerals
     , parseRoman
     ) where
 
-import Control.Monad
-import Data.Maybe
-import qualified Data.List as List
-import qualified Data.Map as Map
+import           Control.Monad
+import qualified Data.List     as List
+import qualified Data.Map      as Map
+import           Data.Maybe
 
 
 -- http://codingdojo.org/kata/RomanNumerals/

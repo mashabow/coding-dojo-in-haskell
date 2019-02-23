@@ -17,7 +17,15 @@ jobs:
           command: stack test
       - run:
           name: Run HLint
-          command: curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh | sh -s .
+          command: |
+            curl -sSL https://raw.github.com/ndmitchell/hlint/master/misc/run.sh \
+              | sh -s .
+      - run:
+          name: Run stylish-haskell
+          command: |
+            curl -sSL https://raw.github.com/jaspervdj/stylish-haskell/master/scripts/latest.sh \
+              | sh -s -- -i {app,src,test}/*.hs
+            git --no-pager diff --exit-code
       - save_cache:
           name: Cache Dependencies
           key: stack-{{ checksum "package.yaml" }}-{{ checksum "stack.yaml" }}
