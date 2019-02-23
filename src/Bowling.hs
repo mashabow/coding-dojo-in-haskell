@@ -20,9 +20,9 @@ toInt c = if c == '-'
     else digitToInt c
 
 toNonLastFrame :: String -> Frame
-toNonLastFrame ['X'] = StrikeFrame
+toNonLastFrame ['X']     = StrikeFrame
 toNonLastFrame [c1, '/'] = SpareFrame (toInt c1)
-toNonLastFrame [c1, c2] = OpenFrame (toInt c1) (toInt c2)
+toNonLastFrame [c1, c2]  = OpenFrame (toInt c1) (toInt c2)
 
 toInt' :: Char -> Int
 toInt' c = if c == 'X'
