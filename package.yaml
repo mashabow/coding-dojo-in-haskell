@@ -37,6 +37,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - coding-dojo-in-haskell
+    - optparse-simple
 
 tests:
   coding-dojo-in-haskell-test:
