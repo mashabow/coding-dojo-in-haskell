@@ -1,7 +1,7 @@
 module FizzBuzz
     ( convert
     , convertArray
-    , fizzBuzz
+    , main
     ) where
 
 
@@ -21,5 +21,5 @@ convert n
 convertArray :: [Int] -> [String]
 convertArray = map convert
 
-fizzBuzz :: IO ()
-fizzBuzz = putStr . unlines . convertArray $ [1..100]
+main :: Int -> IO ()
+main n = putStr . unlines . convertArray $ [1..n]
