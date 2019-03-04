@@ -1,6 +1,5 @@
 module Main where
 
-import           Lib
 import           Options.Applicative.Simple
 
 import qualified Bowling
@@ -14,10 +13,6 @@ main = do
         "coding-dojo-in-haskell CLI"
         "Run the Kata which you specify as a command"
         (pure ()) $ do
-        addCommand "someFunc"
-            "print \"someFunc\""
-            (const someFunc)
-            (pure ())
         addCommand "Bowling"
             "Calcurate the total score of a given bowling game"
             Bowling.main
