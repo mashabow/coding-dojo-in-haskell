@@ -5,6 +5,7 @@ module RomanNumerals
     , checkGroupCount
     , calcGroups
     , parseRoman
+    , main
     ) where
 
 import           Control.Monad
@@ -80,3 +81,8 @@ parseRoman s = do
     gs <- stringToGroups s
     guard $ all checkGroupCount gs
     calcGroups gs
+
+main :: String -> IO ()
+main s = case parseRoman s of
+    Just n -> putStrLn $ show n
+    Nothing -> putStrLn $ "Invalid Roman numeral: " ++ s

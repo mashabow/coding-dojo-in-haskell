@@ -1,8 +1,10 @@
 module Main where
 
-import qualified FizzBuzz
 import           Lib
 import           Options.Applicative.Simple
+
+import qualified FizzBuzz
+import qualified RomanNumerals
 
 main :: IO ()
 main = do
@@ -23,5 +25,12 @@ main = do
                 <> help "A positive integer where the sequence ends"
                 <> showDefault
                 <> value 100
+                ))
+        addCommand "RomanNumerals"
+            "Convert a Roman numeral to Arabic"
+            RomanNumerals.main
+            (argument str (
+                metavar "ROMAN"
+                <> help "A Roman numeral, written in Latin capital letters"
                 ))
     runCmd
