@@ -1,6 +1,7 @@
 module RomanNumeralsSpec (spec) where
 
 import           RomanNumerals
+import           System.IO
 import           System.IO.Silently
 import           Test.Hspec
 
@@ -117,5 +118,5 @@ spec = do
                 arabic `shouldBe` "123\n"
         context "文字列がローマ数字として不正なとき" $ do
             it "不正である旨を標準出力に表示する" $ do
-                arabic <- capture_ $ main "IIII"
+                arabic <- hCapture_ [stderr] $ main "IIII"
                 arabic `shouldBe` "Invalid Roman numeral: IIII\n"

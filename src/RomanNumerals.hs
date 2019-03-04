@@ -12,6 +12,7 @@ import           Control.Monad
 import qualified Data.List     as List
 import qualified Data.Map      as Map
 import           Data.Maybe
+import           System.IO
 
 
 -- http://codingdojo.org/kata/RomanNumerals/
@@ -85,4 +86,4 @@ parseRoman s = do
 main :: String -> IO ()
 main s = case parseRoman s of
     Just n -> putStrLn $ show n
-    Nothing -> putStrLn $ "Invalid Roman numeral: " ++ s
+    Nothing -> hPutStrLn stderr $ "Invalid Roman numeral: " ++ s
