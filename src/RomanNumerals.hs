@@ -85,5 +85,5 @@ parseRoman s = do
 
 main :: String -> IO ()
 main s = case parseRoman s of
-    Just n -> putStrLn $ show n
+    Just n  -> print n
     Nothing -> hPutStrLn stderr $ "Invalid Roman numeral: " ++ s
