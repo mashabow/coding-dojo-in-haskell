@@ -58,3 +58,6 @@ calcTotalScore = fst . foldr (
 
 calcTotalScoreFromString :: String -> Int
 calcTotalScoreFromString = calcTotalScore . splitIntoFrames
+
+main :: String -> IO ()
+main = print . calcTotalScoreFromString

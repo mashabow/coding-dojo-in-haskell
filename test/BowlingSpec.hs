@@ -1,6 +1,7 @@
 module BowlingSpec (spec) where
 
 import           Bowling
+import           System.IO.Silently
 import           Test.Hspec
 
 {-# ANN module "HLint: ignore Redundant do" #-}
@@ -123,3 +124,8 @@ spec = do
             calcTotalScoreFromString "-/ 1/ 2/ 3/ 4/ 5/ 6/ 7/ 8/ 9/5" `shouldBe` 150
             calcTotalScoreFromString "X  12 X  3/ -- X  X  4/ -- X-X" `shouldBe` 120
             calcTotalScoreFromString "X  X  X  X  X  X  X  X  X  XXX" `shouldBe` 300
+
+    describe "main" $ do
+        it "ゲームの文字列から合計点を計算して標準出力に表示する" $ do
+            total <- capture_ $ main "-- 1- 2- 3- 4- -5 -6 -7 -8 -9"
+            total `shouldBe` "45\n"
