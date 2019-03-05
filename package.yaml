@@ -29,7 +29,7 @@ library:
   - optparse-simple
 
 executables:
-  coding-dojo-in-haskell-exe:
+  run-kata:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
