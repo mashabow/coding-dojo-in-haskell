@@ -26,6 +26,7 @@ library:
   source-dirs: src
   dependencies:
   - containers
+  - optparse-simple
 
 executables:
   coding-dojo-in-haskell-exe:

@@ -13,27 +13,7 @@ main = do
         "coding-dojo-in-haskell CLI"
         "Run the Kata which you specify as a command"
         (pure ()) $ do
-        addCommand "Bowling"
-            "Calcurate the total score of a given bowling game"
-            Bowling.main
-            (argument str (
-                metavar "GAME"
-                <> help "A string of space-separeted frames, e.g. 'X 12 X 3/ 5- 71 -8 4/ -- 9/X'"
-                ))
-        addCommand "FizzBuzz"
-            "Print the FizzBuzz sequence from 1 to N"
-            FizzBuzz.main
-            (argument auto (
-                metavar "N"
-                <> help "A positive integer where the sequence ends"
-                <> showDefault
-                <> value 100
-                ))
-        addCommand "RomanNumerals"
-            "Convert a Roman numeral to Arabic"
-            RomanNumerals.main
-            (argument str (
-                metavar "ROMAN"
-                <> help "A Roman numeral, written in Latin capital letters"
-                ))
+            Bowling.addCommand
+            FizzBuzz.addCommand
+            RomanNumerals.addCommand
     runCmd
