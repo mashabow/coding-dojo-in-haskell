@@ -5,12 +5,17 @@ module RomanNumerals
     , checkGroupCount
     , calcGroups
     , parseRoman
+    , main
+    , addCommand
     ) where
 
 import           Control.Monad
-import qualified Data.List     as List
-import qualified Data.Map      as Map
+import qualified Data.List                  as List
+import qualified Data.Map                   as Map
 import           Data.Maybe
+import           Options.Applicative.Simple hiding (addCommand, value)
+import qualified Options.Applicative.Simple as Simple (addCommand)
+import           System.IO
 
 
 -- http://codingdojo.org/kata/RomanNumerals/
@@ -80,3 +85,16 @@ parseRoman s = do
     gs <- stringToGroups s
     guard $ all checkGroupCount gs
     calcGroups gs
+
+main :: String -> IO ()
+main s = case parseRoman s of
+    Just n  -> print n
+    Nothing -> hPutStrLn stderr $ "Invalid Roman numeral: " ++ s
+
+addCommand = Simple.addCommand "RomanNumerals"
+    "Convert a Roman numeral to Arabic"
+    main
+    (argument str (
+        metavar "ROMAN"
+        <> help "A Roman numeral, written in Latin capital letters"
+        ))

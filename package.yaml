@@ -26,9 +26,10 @@ library:
   source-dirs: src
   dependencies:
   - containers
+  - optparse-simple
 
 executables:
-  coding-dojo-in-haskell-exe:
+  run-kata:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -37,6 +38,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - coding-dojo-in-haskell
+    - optparse-simple
 
 tests:
   coding-dojo-in-haskell-test:

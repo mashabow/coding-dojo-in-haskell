@@ -1,6 +1,8 @@
 module Bowling where
 
 import           Data.Char
+import           Options.Applicative.Simple hiding (addCommand)
+import qualified Options.Applicative.Simple as Simple (addCommand)
 
 
 -- http://codingdojo.org/kata/Bowling/
@@ -58,3 +60,14 @@ calcTotalScore = fst . foldr (
 
 calcTotalScoreFromString :: String -> Int
 calcTotalScoreFromString = calcTotalScore . splitIntoFrames
+
+main :: String -> IO ()
+main = print . calcTotalScoreFromString
+
+addCommand = Simple.addCommand "Bowling"
+    "Calcurate the total score of a given bowling game"
+    Bowling.main
+    (argument str (
+        metavar "GAME"
+        <> help "A string of space-separeted frames, e.g. 'X 12 X 3/ 5- 71 -8 4/ -- 9/X'"
+        ))

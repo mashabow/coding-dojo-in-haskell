@@ -1,9 +1,12 @@
 module FizzBuzz
     ( convert
     , convertArray
-    , fizzBuzz
+    , main
+    , addCommand
     ) where
 
+import           Options.Applicative.Simple hiding (addCommand)
+import qualified Options.Applicative.Simple as Simple (addCommand)
 
 -- http://codingdojo.org/kata/FizzBuzz/
 
@@ -21,5 +24,15 @@ convert n
 convertArray :: [Int] -> [String]
 convertArray = map convert
 
-fizzBuzz :: IO ()
-fizzBuzz = putStr . unlines . convertArray $ [1..100]
+main :: Int -> IO ()
+main n = putStr . unlines . convertArray $ [1..n]
+
+addCommand = Simple.addCommand "FizzBuzz"
+    "Print the FizzBuzz sequence from 1 to N"
+    FizzBuzz.main
+    (argument auto (
+        metavar "N"
+        <> help "A positive integer where the sequence ends"
+        <> showDefault
+        <> value 100
+        ))

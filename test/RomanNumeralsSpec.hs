@@ -1,6 +1,8 @@
 module RomanNumeralsSpec (spec) where
 
 import           RomanNumerals
+import           System.IO
+import           System.IO.Silently
 import           Test.Hspec
 
 {-# ANN module "HLint: ignore Redundant do" #-}
@@ -108,3 +110,13 @@ spec = do
             parseRoman "IXX" `shouldBe` Nothing
             parseRoman "IXIII" `shouldBe` Nothing
             parseRoman "foo" `shouldBe` Nothing
+
+    describe "main" $ do
+        context "ローマ数字として正しい文字列を渡したとき" $ do
+            it "対応する数をアラビア数字で標準出力に表示する" $ do
+                arabic <- capture_ $ main "CXXIII"
+                arabic `shouldBe` "123\n"
+        context "文字列がローマ数字として不正なとき" $ do
+            it "不正である旨を標準出力に表示する" $ do
+                arabic <- hCapture_ [stderr] $ main "IIII"
+                arabic `shouldBe` "Invalid Roman numeral: IIII\n"
