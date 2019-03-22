@@ -6,15 +6,48 @@ Coding Dojo の Kata を使って Haskell の練習 💪
 - https://github.com/codingdojo-org/codingdojo.org
 
 
-## ツールの準備
+## Getting started
 
-macOS の場合
+### 準備（例）
 
 ```console
 $ brew install stack
+$ echo 'export PATH=~/.local/bin:$PATH' >> ~/.bashrc
+
+$ git clone https://github.com/mashabow/coding-dojo-in-haskell.git
+$ cd coding-dojo-in-haskell
 ```
 
-## テストの実行
+### ビルド・インストール・実行
+
+```console
+$ stack install
+(...)
+Copied executables to /Users/mashabow/.local/bin:
+- run-kata
+
+$ run-kata --help
+run-kata
+
+Usage: run-kata [--version] [--help] COMMAND
+  Run the Kata which you specify as a command
+
+Available options:
+  --version                Show version
+  --help                   Show this help text
+
+Available commands:
+  Bowling                  Calcurate the total score of a given bowling game
+  FizzBuzz                 Print the FizzBuzz sequence from 1 to N
+  RomanNumerals            Convert a Roman numeral to Arabic
+
+$ run-kata Bowling 'X X X X X X X X X XXX'
+300
+```
+
+## Development
+
+### テストの実行
 
 ```console
 $ stack test
@@ -26,14 +59,14 @@ $ stack test --file-watch
 $ stack test --file-watch --test-arguments='--match FizzBuzz'
 ```
 
-## Lint の実行
+### Lint の実行
 
 ```console
 $ stack install hlint
 $ hlint .
 ```
 
-## コードの整形
+### コードの整形
 
 ```console
 $ stack install stylish-haskell
